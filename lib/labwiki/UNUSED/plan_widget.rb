@@ -2,17 +2,17 @@
 require 'labwiki/column_widget'
 require 'labwiki/theme/col_content_renderer'
 
-module LabWiki    
-  
+module LabWiki
+
   # Responsible for the PLAN column
-  # Only shows formated text 
+  # Only shows formated text
   #
   class PlanWidget < ColumnWidget
-    
+
     # def on_get(opts, req)
       # @content_descriptor = opts[:content_descriptor]
     # end
-    
+
     def on_get_content(params, req)
       p = parse_req_params(params, req)
       debug "on_get_content: #{p.inspect}"
@@ -28,6 +28,6 @@ module LabWiki
       r = OMF::Web::Theme::ColumnContentRenderer.new(self, @embedded_widget, @name)
       [r.to_html, "text/html"]
     end
-    
+
   end
 end

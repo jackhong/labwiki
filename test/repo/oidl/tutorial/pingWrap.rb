@@ -18,14 +18,14 @@ class Wrapper
      @interval = 1
 
      OML4R::init(args, :appName => 'pingmonitor') do |ap|
-       ap.banner = "\nExecute a wrapper around ping\n Use -h or --help for a list of options\n\n" 
+       ap.banner = "\nExecute a wrapper around ping\n Use -h or --help for a list of options\n\n"
        ap.on("-a","--dest_addr ADDRESS","Address to ping") { |address| @addr = address.to_s() }
        ap.on("-c","--count NUMBER","Number of pings (default: infinite)"){ |count| @count = count.to_i()}
        ap.on("-i","--interval NUMBER","Interval between pings (seconds)"){ |interval| @interval = interval.to_i()}
      end
 
      unless @addr != nil
-       raise "You did not specify an addr to ping! (-a option)" 
+       raise "You did not specify an addr to ping! (-a option)"
      end
   end
 
@@ -39,11 +39,11 @@ class Wrapper
     rtt=column[6].split('=')
 
     puts row
-    MPStat.inject(column[3], ttl[1], rtt[1], column[7])   
+    MPStat.inject(column[3], ttl[1], rtt[1], column[7])
   end
 
   def ping()
-    output = `/bin/ping -n -c 1 #{@addr}`    
+    output = `/bin/ping -n -c 1 #{@addr}`
     process_output(output)
     sleep @interval
   end
@@ -64,7 +64,7 @@ begin
   app = Wrapper.new(ARGV)
   app.start()
 rescue Exception => ex
-  puts "Received an Exception when executing the ping wrapper!" 
-  puts "The Exception is: #{ex}\n" 
+  puts "Received an Exception when executing the ping wrapper!"
+  puts "The Exception is: #{ex}\n"
 end
 

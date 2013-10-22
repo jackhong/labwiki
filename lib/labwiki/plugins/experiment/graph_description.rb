@@ -2,17 +2,17 @@
 require 'uri'
 
 module LabWiki::Plugin::Experiment
-        
+
   # Hold the description for a graph defined for an experiment
   #
   class GraphDescription < OMF::Base::LObject
-    
+
     attr_reader :name, :type, :mstreams
-    
+
     def parse(type, descr)
       type = type.split(':')
       descr = URI.decode(descr)
-      
+
       debug "parse: #{type}--#{descr}"
       case type[0]
       when 'START'
@@ -35,14 +35,14 @@ module LabWiki::Plugin::Experiment
         warn("Unknown graph description type '#{type.inspect}'")
       end
     end
-    
+
     # return a hash describing hte graph suitable for the browser side
     # renderer
     #
     def render_option()
       @opts
     end
-        
+
     def initialize
       @mstreams = {}
       @opts = {

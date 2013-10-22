@@ -2,11 +2,11 @@
 require 'omf-web/theme/bright/widget_chrome'
 
 module OMF::Web::Theme
-  
+
   # Override some of the functionality of the text renderer defined in OMF::Web
   class TextRenderer < Erector::Widget
     include OMF::Base::Loggable
-    
+
     def initialize(text_widget, content, opts)
       super opts
       @opts = opts
@@ -15,7 +15,7 @@ module OMF::Web::Theme
       #puts "CONTENT>>>> #{opts.inspect}"
       @content_descriptor = opts[:content].content_descriptor
     end
-    
+
     def content
       link :href => '/plugin/plan_text/css/plan_text.css', :rel => "stylesheet", :type => "text/css"
       wid = "w#{@widget.object_id}"
@@ -28,13 +28,13 @@ module OMF::Web::Theme
         })
       }
     end
-    
+
     # Return image url which can be resolved within labwiki
     def fix_image_url(url)
       cp = @opts[:content].create_proxy_for_url(url)
       debug "Resolving #{url} to #{cp.content_url}"
       cp.content_url
     end
-  end 
+  end
 
 end # OMF::Web::Theme

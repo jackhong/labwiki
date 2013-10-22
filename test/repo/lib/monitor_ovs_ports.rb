@@ -1,5 +1,5 @@
 #
-# Monitor the port assignment on a vswitch and report any changes through an 
+# Monitor the port assignment on a vswitch and report any changes through an
 # OML stream
 #
 
@@ -26,7 +26,7 @@ class Runner
   #
   # Initialise this object and OML
   #
-  # - args = the command line argument which was given to this wrapper 
+  # - args = the command line argument which was given to this wrapper
   #          application
   #
   def initialize(args)
@@ -35,21 +35,21 @@ class Runner
 
     OML4R::init(args, :expID => 'monitor_openflow', :appName => APPNAME) do |ap|
       ap.banner = "\nMonitor OVS's port assignments\n" +
-        "Use -h or --help for a list of options\n\n" 
-      ap.on("-s", "--sampling DURATION", "Interval in second between sample collection for OML") do |time| 
-        @interval = time 
+        "Use -h or --help for a list of options\n\n"
+      ap.on("-s", "--sampling DURATION", "Interval in second between sample collection for OML") do |time|
+        @interval = time
       end
       ap.on(nil, "--testing", "Just send a few test tuples and then return") { @testing = true }
     end
     @interval = @interval.to_i
   end
 
-  #  
+  #
   # Start the monitoring proess.
   # NOTE: This does NOT return
   #
   def start()
-    if @testing 
+    if @testing
       return test
     end
 
