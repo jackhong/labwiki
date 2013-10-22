@@ -15,6 +15,6 @@ group :db do
   gem "em-pg-sequel"
 end
 
-group :test do
+group :dev do
   gem "pry"
 end

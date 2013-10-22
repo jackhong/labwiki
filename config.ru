@@ -1,7 +1,13 @@
-require 'omf_base/lobject'
 require 'warden-openid'
 require 'openid/store/filesystem'
 require 'omf-web/content/irods_repository'
+
+# Add lib files to load path
+$:.unshift "#{File.dirname(__FILE__)}/lib"
+require 'labwiki'
+
+OMF::Base::Loggable.init_log 'labwiki', :searchPath => File.join(File.dirname(__FILE__), 'labwiki')
+OMF::Common::Loggable.init_log 'labwiki', :searchPath => File.join(File.dirname(__FILE__), 'labwiki')
 
 LW_PORT = "#{LabWiki::Configurator[:port] || 4000}"
 
@@ -50,10 +56,9 @@ use Warden::Manager do |manager|
   manager.failure_app = AuthFailureApp
 end
 
-OMF::Web::Runner.instance.life_cycle(:pre_rackup)
-options = OMF::Web::Runner.instance.options
+#OMF::Web::Runner.instance.life_cycle(:pre_rackup)
+#options = OMF::Web::Runner.instance.options
 
-require 'labwiki/session_init'
 use SessionInit
 
 # These should go to a separate controller/handler file.
@@ -125,15 +130,15 @@ end
 
 map "/labwiki" do
   handler = proc do |env|
-    if options[:no_login_required]
-      identity_url = "https://localhost?id=user1"
-      u_data = 'user1'
-      $users[identity_url] = u_data
-      env['warden'].set_user u_data
-
-      require 'labwiki/rack/top_handler'
-      LabWiki::TopHandler.new(options).call(env)
-    elsif env['warden'].authenticated?
+    #if options[:no_login_required]
+    #  identity_url = "https://localhost?id=user1"
+    #  u_data = 'user1'
+    #  $users[identity_url] = u_data
+    #  env['warden'].set_user u_data
+    #
+    #  require 'labwiki/rack/top_handler'
+    #  LabWiki::TopHandler.new(options).call(env)
+    if env['warden'].authenticated?
       require 'labwiki/rack/top_handler'
       LabWiki::TopHandler.new(options).call(env)
     else
@@ -165,20 +170,19 @@ map '/logout' do
   run handler
 end
 
-map "/resource/vendor/" do
-  require 'omf-web/rack/multi_file'
-  run OMF::Web::Rack::MultiFile.new(options[:static_dirs], :sub_path => 'vendor', :version => true)
-end
+#map "/resource/vendor/" do
+#  require 'omf-web/rack/multi_file'
+#  run OMF::Web::Rack::MultiFile.new(options[:static_dirs], :sub_path => 'vendor', :version => true)
+#end
 
-map "/resource" do
-  require 'omf-web/rack/multi_file'
-  dirs = options[:static_dirs]
-  dirs.insert(0, "#{File.dirname(__FILE__)}/../../htdocs")
-  run OMF::Web::Rack::MultiFile.new(dirs)
-end
+#map "/resource" do
+#  require 'omf-web/rack/multi_file'
+#  dirs = options[:static_dirs]
+#  dirs.insert(0, "#{File.dirname(__FILE__)}/../../htdocs")
+#  run OMF::Web::Rack::MultiFile.new(dirs)
+#end
 
 map "/plugin" do
-  require 'labwiki/rack/plugin_resource_handler'
   run LabWiki::PluginResourceHandler.new()
 end
 
@@ -204,12 +208,10 @@ map '/_content' do
 end
 
 map '/_search' do
-  require 'labwiki/rack/search_handler'
   run LabWiki::SearchHandler.new
 end
 
 map '/_column' do
-  require 'labwiki/rack/column_handler'
   run LabWiki::ColumnHandler.new
 end
 
@@ -232,5 +234,5 @@ map "/" do
   run handler
 end
 
-OMF::Web::Runner.instance.life_cycle(:post_rackup)
+#OMF::Web::Runner.instance.life_cycle(:post_rackup)
 
