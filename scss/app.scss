@@ -54,3 +54,21 @@
 // @import "foundation/components/tooltips";
 // @import "foundation/components/dropdown";
 
+// Special rules for Labwiki
+
+html, body { height: 100% }
+
+.full {
+  position: absolute;
+  background-color: $turquoise;
+  top: 45px;
+  bottom: 30px;
+  @include box-sizing('border-box');
+}
+
+.footer {
+  position: absolute;
+  height: 20px;
+  bottom: 10px;
+}
+

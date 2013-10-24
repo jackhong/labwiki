@@ -6,6 +6,8 @@ module LW
     end
 
     configure :development do
+      require 'pry'
+
       set :public_folder, "./www"
     end
 
