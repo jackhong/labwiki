@@ -10,3 +10,5 @@ Gemfile.lock
 *.gem
 .yardoc
 *.orig
+
+public
