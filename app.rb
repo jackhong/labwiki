@@ -1,11 +1,6 @@
-require 'sinatra/base'
-
 module LW
   class App < Sinatra::Base
-
     use LW::Auth
-
-    helpers LW::Helper
 
     get "/" do
       logger.info 'hello'
@@ -21,7 +16,7 @@ module LW
         #require 'labwiki/rack/top_handler'
         #LabWiki::TopHandler.new(options).call(env)
       else
-        "Please sign in"
+        erector_tpl :layout, hello: 'world'
       end
     end
   end
