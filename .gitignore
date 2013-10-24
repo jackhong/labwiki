@@ -12,3 +12,5 @@ Gemfile.lock
 *.orig
 
 public
+www/css/
+.sass-cache

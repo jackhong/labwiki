@@ -13,8 +13,12 @@ gem "pg"
 gem "em-pg-client", "~> 0.2.1", :require => ["pg/em", "em-synchrony/pg"]
 gem "em-pg-sequel"
 
+# template
 gem "erector"
 
+# css
+gem "compass"
+gem "zurb-foundation"
 
 group :dev do
   gem "pry"
