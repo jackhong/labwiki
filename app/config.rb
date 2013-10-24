@@ -6,7 +6,7 @@ module LW
     end
 
     configure :development do
-      set :public_folder, "./asset"
+      set :public_folder, "./www"
     end
 
     configure :production do
