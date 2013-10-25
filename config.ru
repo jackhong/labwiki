@@ -4,15 +4,13 @@
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 #require 'labwiki'
 
-require "sinatra"
+require "./app"
 
 app_files = Dir.glob("./app/**/*.rb").sort
 
 app_files.each do |file|
   require file
 end
-
-require "./app"
 
 run LW::App
 

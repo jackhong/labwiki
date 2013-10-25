@@ -4,6 +4,8 @@ gem "i18n"
 gem "httparty"
 gem "ruby_parser", "~> 2.3.1"
 gem "sinatra"
+gem "rack-flash3"
+gem "active_support"
 
 # auth
 gem "warden-openid"

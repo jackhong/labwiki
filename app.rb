@@ -1,9 +1,13 @@
+require "sinatra/base"
+require 'rack-flash'
+require 'erector'
+require 'active_support'
+
 module LW
   class App < Sinatra::Base
-    use LW::Auth
+    use Rack::Flash
 
-    get "/" do
-      logger.info 'hello'
+    get '/' do
       #if options[:no_login_required]
       #  identity_url = "https://localhost?id=user1"
       #  u_data = 'user1'
@@ -13,10 +17,11 @@ module LW
       #  require 'labwiki/rack/top_handler'
       #  LabWiki::TopHandler.new(options).call(env)
       if warden.authenticated?
+        erector_tpl :layout, flash: flash
         #require 'labwiki/rack/top_handler'
         #LabWiki::TopHandler.new(options).call(env)
       else
-        erector_tpl :layout, hello: 'world'
+        redirect '/signin'
       end
     end
   end

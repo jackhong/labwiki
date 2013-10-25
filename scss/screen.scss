@@ -8,3 +8,41 @@
 
 /* Default scss with zurb foundation */
 @import "app";
+
+// Special rules for Labwiki
+
+html, body {
+  height: 100%;
+}
+
+.main {
+  position: absolute;
+  // background-color: $clouds;
+  top: 45px;
+  bottom: 33px;
+  @include box-sizing('border-box');
+}
+
+.footer {
+  position: absolute;
+  text-align: center;
+  height: 33px;
+  line-height: 33px;
+  bottom: 0px;
+}
+
+.geni-button {
+  @include button-base;
+  @include button-size($button-med);
+  @include button-style($orange);
+}
+
+.signin {
+  padding-top: em-calc(90);
+  text-align: center;
+
+  .associations {
+    margin-top: em-calc(90);
+    vertical-align: middle;
+  }
+}
